@@ -29,7 +29,7 @@ Agradecemos a seguinte pessoa que contribuiu para este projeto:
   <tr>
     <td align="center"> 
       <a href="https://github.com/lucasmystOS" title="Front-End Developer"> 
-      <img src="https://avatars.githubusercontent.com/u/186340489" width="100px;" alt="Photo by lucasmystOS on GitHub"/>
+      <img src="https://avatars.githubusercontent.com/u/186697279" width="100px;" alt="Photo by lucasmystOS on GitHub"/>
       <br> 
       <sub> 
         <b>
