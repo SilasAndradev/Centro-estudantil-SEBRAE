@@ -4,7 +4,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from .models import Material, Pedido
 from emprestimos.models import Emprestimo
-from accounts.models import Aluno
+from accounts.models import UserProfile
 
 
 @login_required(login_url='/login/')
@@ -33,8 +33,8 @@ def GerenciarAlunos(request):
     
     else:
         context = {
-            'alunos':Aluno.objects.filter(moderador=False),
-            'admins':Aluno.objects.filter(moderador=True)
+            'alunos':UserProfile.objects.filter(moderador=False),
+            'admins':UserProfile.objects.filter(moderador=True)
         }
         
 
@@ -62,7 +62,7 @@ def BloquearUsuarios(request, pk):
         return redirect('dashboard-aluno')
     
     else:
-        aluno = Aluno.objects.get(id=pk)
+        aluno = UserProfile.objects.get(id=pk)
 
         if aluno.bloqueado:
             aluno.bloqueado = False
@@ -133,7 +133,7 @@ def AceitarPedido(request, pk):
                 material=material,
                 data_prevista=pedido.data_prevista,
                 quantidade=pedido.quantidade,
-                quem_aprovou=Aluno.objects.get(user=request.user)
+                quem_aprovou=UserProfile.objects.get(user=request.user)
             )
             return redirect('dashboard')
         return HttpResponse('<h1>Ou o pedido já foi respondido ou o quantidade de material<br>pedido é maior do que a quantidade disponível</h1>')

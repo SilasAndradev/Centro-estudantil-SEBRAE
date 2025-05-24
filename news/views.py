@@ -20,10 +20,28 @@ from .models import (
     ArquivoNaNoticia, 
     ComentarioNaNoticia
     )
-from base.models import Perfil
+from accounts.models import UserProfile
 
 
+def HomePage(request):
+    noticias = Noticia.objects.all().order_by('-updated')[:10]  
+    if request.user.is_authenticated:
+        perfil = UserProfile.objects.filter(user=request.user)
+        context = {
+        'noticias':noticias,
+        'perfil':perfil,
+        'minha_foto_de_perfil':UserProfile.objects.get(user=request.user).foto_de_perfil
+    }
+    else:
+        context = {
+            'noticias':noticias,
+            'perfil':None,
+            'minha_foto_de_perfil':None
+        }
+    return render(request, "core/index.html", context)
 
+def RedirectToHome(request):
+    return redirect('home')
 
 @login_required(login_url='/login')
 def NoticiaPublicar(request):
@@ -83,7 +101,7 @@ def NoticiaPublicar(request):
     context = {
         'arquivo_form':arquivo_form,
         'noticia_form':noticia_form,
-        'minha_foto_de_perfil':Perfil.objects.get(user=request.user).foto_de_perfil
+        'minha_foto_de_perfil':UserProfile.objects.get(user=request.user).foto_de_perfil
     }
     return render(request, "news/noticia_form.html", context)
 
@@ -98,7 +116,7 @@ def NoticiaPage(request, pk):
 
         if noticia.visivel or ( not noticia.visivel and request.user.is_staff):
             conteudo_html = noticia.corpo
-            perfil = Perfil.objects.get(user=request.user) if request.user.is_authenticated else None
+            perfil = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
 
             if request.method == 'POST' and request.user.is_authenticated:
                 if not perfil.pode_comentar:
@@ -137,7 +155,7 @@ def NoticiaPage(request, pk):
 
     elif pk == 'feed':
         noticias = Noticia.objects.all().order_by('-updated')
-        perfil = Perfil.objects.get(user=request.user) if request.user.is_authenticated else None
+        perfil = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
         return render(request, "news/feed.html", {
             'noticias': noticias,
             'minha_foto_de_perfil': perfil.foto_de_perfil if perfil else None
@@ -228,7 +246,7 @@ def NoticiaEditar(request, pk):
         noticia_form = NoticiaForm(instance=noticia)
         arquivos_formset = ArquivoFormSet(queryset=ArquivoNaNoticia.objects.filter(noticia=noticia))
 
-    foto_de_perfil = Perfil.objects.get(user=request.user).foto_de_perfil
+    foto_de_perfil = UserProfile.objects.get(user=request.user).foto_de_perfil
 
 
     context = {
@@ -270,7 +288,7 @@ def NoticiaExcluir(request, pk):
 
     return render(request, "news/excluir.html", {
                                                 'obj': noticia,
-                                                'minha_foto_de_perfil':Perfil.objects.get(user=request.user).foto_de_perfil
+                                                'minha_foto_de_perfil':UserProfile.objects.get(user=request.user).foto_de_perfil
                                                 })
 
 
@@ -283,7 +301,7 @@ def Procurar(request):
         )
     número_de_notícia = noticias.count()
     if request.user.is_authenticated:  
-        foto_de_perfil = Perfil.objects.get(user=request.user).foto_de_perfil
+        foto_de_perfil = UserProfile.objects.get(user=request.user).foto_de_perfil
     else:
         foto_de_perfil = None
     context = {

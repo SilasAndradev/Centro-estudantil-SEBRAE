@@ -1,8 +1,10 @@
-{% extends 'main.html' %}
 {% load static %}
-
-{% block title %}Login{% endblock %}
-{% block extra_css %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,10 +92,9 @@
             text-decoration: underline;
         }
     </style>
-{% endblock %}
-
-{% block content %}
-<div>    
+</head>
+<body>
+    <div>    
     <div class="login-container">
         <h2>Login</h2>
         
@@ -127,9 +128,10 @@
       
       <!-- Link para cadastro -->
         <div class="signup-link">
-            <p>Não tem uma conta? <a href="{% url 'cadastrar' %}">Cadastre-se aqui</a></p>
+            <p>Não tem uma conta? <a href="{% url 'register' %}">Cadastre-se aqui</a></p>
         </div>
     </div>
 
-</div>
-{% endblock %}
+</div>    
+</body>
+</html>

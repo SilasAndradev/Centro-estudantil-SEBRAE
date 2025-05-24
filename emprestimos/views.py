@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from moderator.forms import PedidoForm
 from .models import Emprestimo
-from accounts.models import Aluno
+from accounts.models import UserProfile
 
 
 @login_required(login_url='/login/')
@@ -11,7 +11,7 @@ def SolicitarEmprestimo(request):
     form = PedidoForm()
 
     if request.method == 'POST':
-        aluno = Aluno.objects.get(user=request.user)
+        aluno = UserProfile.objects.get(user=request.user)
         form = PedidoForm(request.POST)
         if form.is_valid:
             if not aluno.bloqueado or not aluno.aprovado:
@@ -35,7 +35,7 @@ def SolicitarEmprestimo(request):
 def FazerDevolucao(request, pk):
     emprestimo = Emprestimo.objects.get(id=pk)
 
-    if emprestimo.aluno.user == request.user:
+    if emprestimo.usuário.user == request.user:
         emprestimo.devolvido = True
         emprestimo.save()
         return redirect('dashboard-aluno')

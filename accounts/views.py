@@ -5,19 +5,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 
-from .forms import AlunoForm
-from .models import Aluno
+from .forms import UserProfileForm
+from .models import UserProfile
 from moderator.models import Pedido
 from emprestimos.models import Emprestimo
 # Create your views here.
 
 def RegisterPage(request):
     form = UserCreationForm()
-    alunoForm = AlunoForm()
+    alunoForm = UserProfileForm()
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        alunoForm = AlunoForm(request.POST)
+        alunoForm = UserProfileForm(request.POST)
         
         if form.is_valid() and alunoForm.is_valid():
 
@@ -53,7 +53,7 @@ def LoginPage(request):
         password = request.POST.get('password')
 
         try:
-            username = Aluno.objects.get(matricula=matricula).user.username
+            username = UserProfile.objects.get(matricula=matricula).user.username
         except Exception as _:
             messages.error(request, 'Usuário não existe!')
 
@@ -78,8 +78,8 @@ def LogoutUser(request):
 
 
 @login_required(login_url='/login/')
-def DashboardAluno(request):
-    aluno = Aluno.objects.get(user=request.user)
+def DashboardUser(request):
+    aluno = UserProfile.objects.get(user=request.user)
     context = {
             'pedidos_pendentes':Pedido.objects.filter(
                 aluno=aluno, 

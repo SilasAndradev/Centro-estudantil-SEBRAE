@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from base.models import Perfil
+from accounts.models import UserProfile
 from django.db import models
 
 # Create your models here.
@@ -31,7 +31,7 @@ class ArquivoNaNoticia(models.Model):
 class ComentarioNaNoticia(models.Model):
     noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name="comentarios")
     pai = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="respostas")
-    autor = models.ForeignKey(Perfil, on_delete=models.CASCADE)
+    autor = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     comentario = models.TextField()
     data = models.DateTimeField(auto_now_add=True)
 

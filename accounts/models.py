@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 
-class Aluno(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
 
     nome_completo = models.CharField(max_length=255)
@@ -14,9 +14,11 @@ class Aluno(models.Model):
 
     aprovado = models.BooleanField(default=False)
 
+    CommentPermission = models.BooleanField(default=True)
+
     bloqueado = models.BooleanField(default=False)
 
-    moderador = models.BooleanField(default=False)
+
 
     
     def __str__(self):

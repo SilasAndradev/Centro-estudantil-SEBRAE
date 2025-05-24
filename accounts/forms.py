@@ -1,13 +1,13 @@
 from django.forms import ModelForm
-from accounts.models import Aluno
+from accounts.models import UserProfile
 from django import forms
 
 
-class AlunoForm(ModelForm):
+class UserProfileForm(ModelForm):
     class Meta:
-        model = Aluno
+        model = UserProfile
         fields = '__all__'
-        exclude = ['user', 'bloqueado', 'moderador']
+        exclude = ['user', 'bloqueado', 'moderador', 'CommentPermission', 'aprovado']
         widgets = {
             'nome_completo':forms.TextInput(attrs={'class': 'form-control'}),
             'matricula':forms.TextInput(attrs={'class': 'form-control'}),
