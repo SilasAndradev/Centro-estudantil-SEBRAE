@@ -11,7 +11,6 @@
 ## 🤝 Contribuidor 
 
 Agradecemos a seguinte pessoa que contribuiu para este projeto:
-
 <table>
   <tr>
     <td align="center"> 
@@ -24,19 +23,17 @@ Agradecemos a seguinte pessoa que contribuiu para este projeto:
         </b> 
       </sub> 
     </a> 
-    </td>
-  </tr>
-  <tr>
+    </td> 
     <td align="center"> 
-      <a href="https://github.com/lucasmystOS" title="Front-End Developer"> 
-      <img src="https://avatars.githubusercontent.com/u/186697279" width="100px;" alt="Photo by lucasmystOS on GitHub"/>
+      <a href="https://github.com/LucasmystOS" title="Back-End Developer"> 
+      <img src="https://avatars.githubusercontent.com/u/186697279" width="100px;" alt="Photo by LucasmystOS on GitHub"/>
       <br> 
       <sub> 
         <b>
-          Lucas Vieira
+          Lucas Da Hora Vieira
         </b> 
       </sub> 
     </a> 
-    </td>
+    </td> 
   </tr>
 </table>
